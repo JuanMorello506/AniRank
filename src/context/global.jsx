@@ -49,7 +49,6 @@ export const GlobalContextProvider = ({children}) => {
             }
             const data = await response.json();
             dispatch({ type: GET_POPULAR_ANIME, payload: data.data });
-            console.log(data.data)
         } catch (error) {
             console.error("Error fetching anime:", error);
             
@@ -63,7 +62,6 @@ export const GlobalContextProvider = ({children}) => {
     //initial render
     useEffect(() => {
         getPopularAnime();
-        console.log(initialState)
     }, [])
 
     return(
