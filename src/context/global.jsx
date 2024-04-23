@@ -1,19 +1,28 @@
 import {createContext, useContext, useReducer, useEffect} from "react";
 
 
-const GlobalContext = createContext();
+const AnimeContext = createContext();
 
-const baseUrl = "https:api.jikan.moe/v4"
+const baseUrl = "https://api.jikan.moe/v4"
 
 //actions
-const LOAD = `LOADING`
-const SEARCH = `SEARCH`
-const GET_POPULAR_ANIME = `GET_POPULAR_ANIME`
-const GET_UPCOMING_ANIME = `GET_UPCOMING_ANIME`
+const LOADING = "LOADING";
+const SEARCH = "SEARCH";
+const GET_POPULAR_ANIME = "GET_POPULAR_ANIME";
+const GET_UPCOMING_ANIME = "GET_UPCOMING_ANIME";
+const GET_AIRING_ANIME = "GET_AIRING_ANIME";
 
 //reducer
 const reducer = (state, action) => {
-    return state;
+    switch(action.type){
+        case LOADING:
+            return {...state, loading: true};
+        case GET_POPULAR_ANIME:
+            return {...state, popularAnime: action.payload, loading: false};
+        default: 
+            return state;
+    }
+   
 }
 
 export const GlobalContextProvider = ({children}) => {
@@ -22,37 +31,52 @@ export const GlobalContextProvider = ({children}) => {
         popularAnime:[],
         upcomingAnime:[],
         airingAnime:[],
-        Pictures:[],
-        isSearch:false,
+        pictures:[],
+        isSearch: false,
         searchResults:[],
-        loading:false
+        loading: false
     }
 
     const [state, dispatch] = useReducer(reducer, initialState)
 
     //fetching popular animes
     const getPopularAnime = async () => {
-        const response = await fetch(`${baseUrl}/top/anime`);
-        const data = await response.json();
-        console.log(data);
+        try {
+            dispatch({ type: LOADING });
+            const response = await fetch(`${baseUrl}/top/anime?filter=bypopularity`);
+            if (!response.ok) {
+                throw new Error(`Error fetching data: ${response.status}`);
+            }
+            const data = await response.json();
+            dispatch({ type: GET_POPULAR_ANIME, payload: data.data });
+            console.log(data.data)
+        } catch (error) {
+            console.error("Error fetching anime:", error);
+            
+        }
+
+        
+        
 
     }
 
     //initial render
     useEffect(() => {
         getPopularAnime();
+        console.log(initialState)
     }, [])
 
     return(
         
-        <GlobalContext.Provider value={{
-            ...state
+        <AnimeContext.Provider value={{
+            ...state,
+            getPopularAnime,
         }}>
             {children}
-        </GlobalContext.Provider>
+        </AnimeContext.Provider>
     )
 }
 
 export const useGlobalContex = () => {
-    return useContext(GlobalContext);
+    return useContext(AnimeContext);
 }
