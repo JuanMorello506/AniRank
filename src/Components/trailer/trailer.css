@@ -1,0 +1,14 @@
+.trailer-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.trailer-container iframe{
+    outline: none;
+    border: 5px solid #e5e7eb;
+    padding: 1.5rem;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+}
