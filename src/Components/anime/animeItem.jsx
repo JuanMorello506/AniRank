@@ -13,7 +13,7 @@ const AnimeItem = () => {
   const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
-    const getAnimeById = async () => {
+    const getAnimeById = async () => {/* reemplazar por getAnimeFullById si queres mas parametros ej: cant de eps*/
       const response = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
       const data = await response.json();
       setAnime(data.data);
@@ -32,7 +32,7 @@ const AnimeItem = () => {
   const { title, synopsis, trailer, duration, aired, season, images, rank, score, scored_by, popularity, status, rating, source } = anime;
 
   return (
-    <div>
+    <div className='animeItem-container'>
       <h1 className='main-title'>{title}</h1>
       <div className="details">
         <div className="detail">

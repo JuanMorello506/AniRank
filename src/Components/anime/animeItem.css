@@ -1,4 +1,4 @@
-*{
+.animeItem-container{
     padding: 3rem 18rem;
     background-color: #EDEDED;
 }
@@ -54,8 +54,6 @@
     
 }
     
-
-
 .anime-details{
     display: flex;
     flex-direction: column;
@@ -75,7 +73,8 @@
 .detail{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    img{
-        border-radius: 7px;
-    }
+    
+}
+.detail .image-container{
+    border-radius: 7px;
 }

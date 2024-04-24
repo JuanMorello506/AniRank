@@ -12,6 +12,7 @@ const Trailer = ({ trailer }) => {
             title="Inline Frame Example"
             width="800"
             height="450"
+            sandbox="allow-scripts allow-same-origin"
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
