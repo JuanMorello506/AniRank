@@ -1,17 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../character/character.css'
+
 
 const Character = ({ character }) => {
-  const { role, images, name, mal_id } = character.characters;
+  const {role} = character
+  const {images, name, mal_id} = character.character
+  
 
   return (
-    <Link to={`/character/${mal_id}`}>
-      <div className="character">
-        <img src={images?.jpg?.image_url} alt="" />
-        <h4>{name}</h4>
-        <p>{role}</p>
+    <div className="character">
+        <Link to={`/character/${mal_id}`}>
+            <img src={images?.jpg?.image_url} alt="" />
+            <h4>{name}</h4>
+            <p>{role}</p>
+        </Link>
       </div>
-    </Link>
+    
   );
 };
 

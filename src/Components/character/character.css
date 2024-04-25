@@ -1,0 +1,23 @@
+.character{
+    padding: .4rem .6rem;
+    border-radius: 7px;
+    background-color: #EDEDED;
+    transition: all .4s ease-in-out;
+}
+
+.character img{
+    width: 100%;
+}
+
+.character h4{
+    padding: .5rem 0;
+    color: #454e56;
+}
+
+.character p{
+    color: #27AE60;
+}
+
+.character p:hover{
+    transform: translateY(-5px);
+}

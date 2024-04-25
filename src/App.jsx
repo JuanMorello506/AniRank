@@ -2,6 +2,7 @@
 import Popular from './Components/popular/Popular'
 import { BrowserRouter, Routes,Route } from 'react-router-dom'
 import AnimeItem from './Components/anime/animeItem'
+import HomePage from './Components/homePage/HomePage'
 
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
       <BrowserRouter>
         
         <Routes>
-          <Route path="/" element={<Popular />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/anime/:id" element={<AnimeItem />}/>
         </Routes>
        

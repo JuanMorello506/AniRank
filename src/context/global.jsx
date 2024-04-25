@@ -1,4 +1,4 @@
-import {createContext, useContext, useReducer, useEffect} from "react";
+import {createContext, useContext, useReducer, useEffect, useState} from "react";
 
 
 const AnimeContext = createContext();
@@ -19,6 +19,12 @@ const reducer = (state, action) => {
             return {...state, loading: true};
         case GET_POPULAR_ANIME:
             return {...state, popularAnime: action.payload, loading: false};
+        case SEARCH:
+            return {...state, searchResults: action.payload, loading: false}
+        case GET_UPCOMING_ANIME:
+            return {...state, upcomingAnime: action.payload, loading: false}
+        case GET_AIRING_ANIME:
+            return {...state, airingAnime: action.payload, loading: false}
         default: 
             return state;
     }
@@ -37,7 +43,27 @@ export const GlobalContextProvider = ({children}) => {
         loading: false
     }
 
-    const [state, dispatch] = useReducer(reducer, initialState)
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const [search,setSearch] = useState();
+
+    //handlers
+    const handleChange = (e) =>{
+        setSearch(e.target.value);
+        if(e.target.value === ''){
+            initialState.isSearch = false;
+        }
+    };
+
+    const handleSumbit = (e) => {
+        e.preventDefault();
+        if(search){
+            searchAnime(search);
+            state.isSearch = true;
+        }else{
+            state.isSearch = false;
+            alert('Please enter a search term')
+        }
+    };
 
     //fetching popular animes
     const getPopularAnime = async () => {
@@ -54,9 +80,55 @@ export const GlobalContextProvider = ({children}) => {
             
         }
 
-        
-        
+    }
 
+    //fetching upcoming anime
+    const getUpcomingAnime = async () => {
+        try{
+            dispatch({type: LOADING})
+            const response = await fetch(`${baseUrl}/top/anime?filter=upcoming`);
+            if (!response.ok) {
+                throw new Error(`Error fetching data: ${response.status}`);
+            }
+            const data = await response.json();
+            dispatch({type: GET_UPCOMING_ANIME, payload: data.data})
+        } catch(error) {
+            console.error("Error fetching anime:", error);
+        }
+        
+    }
+
+
+    //fetching airing anime
+    const getAiringAnime = async () => {
+        try{
+            dispatch({type: LOADING})
+            const response = await fetch(`${baseUrl}/top/anime?filter=airing`);
+            if (!response.ok) {
+                throw new Error(`Error fetching data: ${response.status}`);
+            }
+            const data = await response.json();
+            dispatch({type: GET_AIRING_ANIME, payload: data.data})
+        }catch(error) {
+            console.error("Error fetching anime:", error);
+        }
+    }
+
+    //search anime
+    const searchAnime = async (anime) => {
+        try {
+            dispatch({ type: LOADING });
+            const response = await fetch(`${baseUrl}/anime?=${anime}`);
+            if (!response.ok) {
+                throw new Error(`Error fetching data: ${response.status}`);
+            }
+            const data = await response.json();
+            dispatch({ type: SEARCH, payload: data.data });
+        } catch (error) {
+            console.error("Error fetching anime:", error);
+            
+        }
+        
     }
 
     //initial render
@@ -68,13 +140,19 @@ export const GlobalContextProvider = ({children}) => {
         
         <AnimeContext.Provider value={{
             ...state,
+            handleChange,
+            handleSumbit,
+            searchAnime,
+            search,
             getPopularAnime,
+            getUpcomingAnime,
+            getAiringAnime,
         }}>
             {children}
         </AnimeContext.Provider>
     )
 }
 
-export const useGlobalContex = () => {
+export const useGlobalContext = () => {
     return useContext(AnimeContext);
 }

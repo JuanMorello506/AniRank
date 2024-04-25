@@ -1,10 +1,10 @@
 import React from 'react'
-import { useGlobalContex } from '../../context/global'
+import { useGlobalContext } from '../../context/global'
 import { Link } from 'react-router-dom';
 import "../popular/popular.css"
 
-export default function Popular() {
-  const {popularAnime, isSearch} = useGlobalContex()
+export default function Popular({}) {
+  const {popularAnime, isSearch} = useGlobalContext()
   console.log(popularAnime)
 
   const conditionalRender = () => (

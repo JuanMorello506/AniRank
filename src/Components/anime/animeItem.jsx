@@ -12,24 +12,27 @@ const AnimeItem = () => {
   const [characters, setCharacters] = useState([]);
   const [showMore, setShowMore] = useState(false);
 
+  const getAnimeById = async () => {
+    const response = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
+    const data = await response.json();
+    setAnime(data.data);
+  };
+
+  const getCharactersById = async () => {
+    const response = await fetch(`https://api.jikan.moe/v4/anime/${id}/characters`);
+    const data = await response.json();
+    setCharacters(data.data);
+  };
+
   useEffect(() => {
-    const getAnimeById = async () => {/* reemplazar por getAnimeFullById si queres mas parametros ej: cant de eps*/
-      const response = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
-      const data = await response.json();
-      setAnime(data.data);
-    };
+    
+    getAnimeById(id);
+    getCharactersById(id);
+    
+  }, []);
 
-    const getCharactersById = async () => {
-      const response = await fetch(`https://api.jikan.moe/v4/anime/${id}/characters`);
-      const data = await response.json();
-      setCharacters(data.data);
-    };
-
-    getAnimeById();
-    getCharactersById();
-  }, [id]);
-
-  const { title, synopsis, trailer, duration, aired, season, images, rank, score, scored_by, popularity, status, rating, source } = anime;
+  const { title, synopsis, trailer, duration, aired, season, images, rank, score, scored_by, popularity, 
+    status, rating, source } = anime;
 
   return (
     <div className='animeItem-container'>
@@ -58,11 +61,13 @@ const AnimeItem = () => {
         </p>
         <Trailer trailer={trailer} />
         <h3 className='title'>Characters</h3>
-        {/* <div className="Characters">
-          {characters?.map((character, index) => (
-            <Character character={character} key={index} />
-          ))}
-        </div> */}
+        <div className="characters">
+              {characters?.map((character, index) => (
+                <Character character={character} key={index} />
+              ))}
+        </div>
+          
+        
       </div>
     </div>
   );
