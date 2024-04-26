@@ -50,7 +50,7 @@ export const GlobalContextProvider = ({children}) => {
     const handleChange = (e) =>{
         setSearch(e.target.value);
         if(e.target.value === ''){
-            initialState.isSearch = false;
+            initialState.isSearch = true;
         }
     };
 
@@ -134,6 +134,8 @@ export const GlobalContextProvider = ({children}) => {
     //initial render
     useEffect(() => {
         getPopularAnime();
+        getUpcomingAnime();
+        getAiringAnime();
     }, [])
 
     return(

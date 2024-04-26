@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useGlobalContext } from '../../context/global'
 import '../homePage/homePage.css'
 import Popular from '../popular/Popular'
+import Upcoming from '../upcoming/Upcoming'
+import Airing from '../airing/Airing'
 
 export default function HomePage() {
     
