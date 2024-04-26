@@ -1,7 +1,7 @@
 import React from 'react'
 import { useGlobalContext } from '../../context/global'
 import { Link } from 'react-router-dom';
-import "../upcoming/upcoming.css"
+import "../airing/airing.css"
 
 export default function Popular({render}) {
   const {airingAnime, isSearch, search} = useGlobalContext()

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import Character from '../character/Character';
 import Trailer from '../trailer/Trailer';
 import '../anime/animeItem.css'
+import { getAnimeById, getCharactersById } from '../../helpers/apiHelper';
 
 const AnimeItem = () => {
   const { id } = useParams();
@@ -12,22 +13,11 @@ const AnimeItem = () => {
   const [characters, setCharacters] = useState([]);
   const [showMore, setShowMore] = useState(false);
 
-  const getAnimeById = async () => {
-    const response = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
-    const data = await response.json();
-    setAnime(data.data);
-  };
-
-  const getCharactersById = async () => {
-    const response = await fetch(`https://api.jikan.moe/v4/anime/${id}/characters`);
-    const data = await response.json();
-    setCharacters(data.data);
-  };
 
   useEffect(() => {
     
-    getAnimeById(id);
-    getCharactersById(id);
+    getAnimeById(id, setAnime);
+    getCharactersById(id, setCharacters);
     
   }, []);
 

@@ -131,12 +131,6 @@ export const GlobalContextProvider = ({children}) => {
         
     }
 
-    //initial render
-    useEffect(() => {
-        getPopularAnime();
-        getUpcomingAnime();
-        getAiringAnime();
-    }, [])
 
     return(
         

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useGlobalContext } from '../../context/global'
 import '../homePage/homePage.css'
 import Popular from '../popular/Popular'
@@ -19,6 +19,11 @@ export default function HomePage() {
 
     const [render, setRender] = useState('popular')
 
+    useEffect(()=>{
+        getPopularAnime()
+    },[])
+
+
     const switchComponents = () => {
         switch(render){
             case 'popular':
@@ -32,19 +37,16 @@ export default function HomePage() {
         }
     }
 
+    
     const changeRender = (renderTo) => {
         setRender(renderTo)
-        
-        if(renderTo === 'popular'){
-            getPopularAnime
-        }
 
         if(renderTo === 'upcoming'){
-            getUpcomingAnime
+            getUpcomingAnime()
         }
 
         if(renderTo === 'airing'){
-            getAiringAnime
+            getAiringAnime()
         }
     }
 
