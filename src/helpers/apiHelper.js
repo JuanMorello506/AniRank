@@ -17,4 +17,10 @@ const getAnimeById = async (id, setter) => {
     setter(data.data);
   };
 
-  export { getAnimeById, getCharactersById, getCharactersFullInfoById };
+  const getApparitionsById = async (id, setter) => {
+    const response = await fetch(`https://api.jikan.moe/v4/characters/${id}/anime`)
+    const data = await response.json();
+    setter(data.data);
+  }
+
+  export { getAnimeById, getCharactersById, getCharactersFullInfoById, getApparitionsById};

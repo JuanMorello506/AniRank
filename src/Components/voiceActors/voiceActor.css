@@ -1,0 +1,23 @@
+.actor{
+    padding: .4rem .6rem;
+    border-radius: 7px;
+    background-color: #EDEDED;
+    transition: all .4s ease-in-out;
+}
+
+.actor img{
+    width: 100%;
+}
+
+.actor h4{
+    padding: .5rem 0;
+    color: #454e56;
+}
+
+.actor p{
+    color: #27AE60;
+}
+
+.actor p:hover{
+    transform: translateY(-5px);
+}

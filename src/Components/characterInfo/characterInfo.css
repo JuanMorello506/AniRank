@@ -1,9 +1,35 @@
-.animeItem-container{
+
+  
+  .apparitions-con {
+    display: flex; /* Make images display inline */
+    flex-wrap: wrap; /* Allow images to wrap to the next line if needed */
+    gap: 10px;
+    background-color: #fff;
+    border: 5px solid #e5e7eb;
+ /* Add spacing between images (adjust as desired) */
+  }
+  
+  .apparition-img-con {
+    
+  }
+  
+  .apparition-img-con img {
+    width: 200px; 
+    height: 250px; 
+    object-fit: cover; 
+    margin-left: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 5px solid #e5e7eb;
+  }
+  
+
+  .character-info-con{
     padding: 3rem 18rem;
     background-color: #EDEDED;
 }
 
-.main-title{
+.character-name{
     display: inline-block;
     font-size: 3rem;
     margin-bottom: 1.5rem;
@@ -14,7 +40,7 @@
     transition: all .4s ease-in-out;
 }
 
-.main-title :hover{
+.character-name:hover{
     transform: skew(-3deg);
 }
 .title{
@@ -45,7 +71,7 @@
 
 
 
-.details{
+.character-details{
     background-color: #fff;
     border-radius: 20px;
     padding: 2rem;
@@ -54,32 +80,46 @@
     
 }
     
-.anime-details{
+.details-con{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
-.anime-details p{
-    display: flex;
-    gap: 1rem;
+.details-con h2{
+    border-bottom: solid
+}
+.details-con h3{
+    margin-top: 1rem;
 }
 
-.anime-details p span:first-child{
-    font-weight: 600;
-    color: #454e56;
-}
 
-.detail{
+
+
+
+.character-detail{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     
 }
-.detail.image-container{
+.character-detail.char-image{
     border-radius: 7px;
+    margin-right: 0;
+    padding-right: 0;
+    
+    
 }
 
-.characters{
+.about button{
+    background-color: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: #27AE60;
+        font-weight: 600;
+}
+
+ .voice-actors{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 2rem;
@@ -87,5 +127,5 @@
     padding: 2rem;
     border-radius: 20px;
     border: 5px solid #e5e7eb;
-}
+} 
 
